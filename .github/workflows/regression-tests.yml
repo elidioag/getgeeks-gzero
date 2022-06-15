@@ -34,3 +34,9 @@ jobs:
       with:
         name: api-reports
         path: backend/users/logs
+    - name: Test Reporter
+      uses: dorny/test-reporter@v1.5.0
+      with:
+        name: API Test results
+        path: backend/users/logs/xunit.xml
+        reporter: java-junit
