@@ -28,3 +28,9 @@ jobs:
       run: |
         chmod +x ./backend/users/run.sh
         cd backend/users/ && ./run.sh
+    - name: Upload API Tests results
+      uses: actions/upload-artifact@v3.1.0
+      if: always()
+      with:
+        name: api-reports
+        path: backend/users/logs
