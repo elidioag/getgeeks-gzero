@@ -26,17 +26,17 @@ jobs:
         pip install -r requirements.txt
     - name: Run API Tests
       run: |
-        chmod +x ./backend/users/run.sh
-        cd backend/users/ && ./run.sh
+        chmod +x ./backend/run.sh
+        cd backend/ && ./run.sh
     - name: Upload API Tests results
       uses: actions/upload-artifact@v3.1.0
       if: always()
       with:
         name: api-reports
-        path: backend/users/logs
+        path: backend/logs
     - name: Test Reporter
       uses: dorny/test-reporter@v1.5.0
       with:
         name: API Test results
-        path: backend/users/logs/xunit.xml
+        path: backend/logs/xunit.xml
         reporter: java-junit

@@ -1,0 +1,1952 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 4.1.3 (Python 3.9.5 on win32)" generated="20220615 09:18:24.258" rpa="false" schemaversion="2">
+<suite id="s1" name="Tests" source="D:\Git\robot-gravidade-zero\getgeeks\project\backend\users\tests">
+<suite id="s1-s1" name="Geeks" source="D:\Git\robot-gravidade-zero\getgeeks\project\backend\users\tests\Geeks.robot">
+<test id="s1-s1-t1" name="Be a geek">
+<kw name="Factory Be Geek" library="Users">
+<var>${user}</var>
+<msg timestamp="20220615 09:18:24.558" level="INFO">${user} = {'name': 'João Lucas', 'email': 'joao@test.com', 'password': 'pwd123', 'geek_profile': {'whatsapp': '44999999999', 'desc': 'Teste bla bla bla bla bla bla bla bla bla bla bla bla bla bla', 'printer_rep...</msg>
+<status status="PASS" starttime="20220615 09:18:24.557" endtime="20220615 09:18:24.558"/>
+</kw>
+<kw name="Remove User" library="Helpers">
+<arg>${user}</arg>
+<kw name="Get Token" library="Helpers">
+<var>${token}</var>
+<arg>${user}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${payload}</var>
+<arg>email=${user}[email]</arg>
+<arg>password=${user}[password]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:24.559" level="INFO">${payload} = {'email': 'joao@test.com', 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:24.559" endtime="20220615 09:18:24.559"/>
+</kw>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:25.366" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '48', 'Content-Type': 'application/json'} 
+ body=b'{"email": "joao@test.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:25.366" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '367', 'Etag': 'W/"16f-4g+3LalU2Fz4C0512xyKLxLV56E"', 'Date': 'Wed, 15 Jun 2022 12:18:25 GMT', 'Via': '1.1 vegur'} 
+ body={"user":{"id":180,"email":"joao@test.com","password_hash":"$2b$08$vB21rsag7NanYoWeuEzAD.G1MCvNsoSicfBum3/RujAi5.pXesF0W","name":"João Lucas","avatar":null,"whatsapp":"44999999999","is_geek":true},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgwLCJpYXQiOjE2NTUyOTU1MDUsImV4cCI6MTY1NjE1OTUwNX0.F-MnMIlmFoDZf4foO7uPLAjL4uQna3Ns8Gh2XIKygsk","expires_in":"10d"} 
+ </msg>
+<msg timestamp="20220615 09:18:25.366" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:24.560" endtime="20220615 09:18:25.366"/>
+</kw>
+<msg timestamp="20220615 09:18:25.366" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:24.560" endtime="20220615 09:18:25.366"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:25.367" level="INFO">${result} = </msg>
+<status status="PASS" starttime="20220615 09:18:25.367" endtime="20220615 09:18:25.367"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;200&quot; in &quot;${response}&quot;">
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>Bearer ${response.json()}[token]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:25.369" level="INFO">${result} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgwLCJpYXQiOjE2NTUyOTU1MDUsImV4cCI6MTY1NjE1OTUwNX0.F-MnMIlmFoDZf4foO7uPLAjL4uQna3Ns8Gh2XIKygsk</msg>
+<status status="PASS" starttime="20220615 09:18:25.368" endtime="20220615 09:18:25.369"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:25.368" endtime="20220615 09:18:25.369"/>
+</branch>
+<status status="PASS" starttime="20220615 09:18:25.367" endtime="20220615 09:18:25.369"/>
+</if>
+<msg timestamp="20220615 09:18:25.369" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgwLCJpYXQiOjE2NTUyOTU1MDUsImV4cCI6MTY1NjE1OTUwNX0.F-MnMIlmFoDZf4foO7uPLAjL4uQna3Ns8Gh2XIKygsk</msg>
+<status status="PASS" starttime="20220615 09:18:24.558" endtime="20220615 09:18:25.369"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${token}&quot;">
+<kw name="DELETE User" library="UsersRoute">
+<arg>${token}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:25.370" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgwLCJpYXQiOjE2NTUyOTU1MDUsImV4cCI6MTY1NjE1OTUwNX0.F-MnMIlmFoDZf4foO7uPLAjL4uQna3Ns8Gh2XIKygsk'}</msg>
+<status status="PASS" starttime="20220615 09:18:25.370" endtime="20220615 09:18:25.370"/>
+</kw>
+<kw name="DELETE" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a DELETE request.</doc>
+<msg timestamp="20220615 09:18:25.996" level="INFO">DELETE Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgwLCJpYXQiOjE2NTUyOTU1MDUsImV4cCI6MTY1NjE1OTUwNX0.F-MnMIlmFoDZf4foO7uPLAjL4uQna3Ns8Gh2XIKygsk', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:25.997" level="INFO">DELETE Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=204, reason=No Content 
+ headers={'Server': 'Cowboy', 'Content-Length': '0', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Date': 'Wed, 15 Jun 2022 12:18:25 GMT', 'Via': '1.1 vegur'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:25.997" level="INFO">${response} = &lt;Response [204]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:25.370" endtime="20220615 09:18:25.997"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:25.369" endtime="20220615 09:18:25.997"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:25.369" endtime="20220615 09:18:25.997"/>
+</branch>
+<status status="PASS" starttime="20220615 09:18:25.369" endtime="20220615 09:18:25.997"/>
+</if>
+<status status="PASS" starttime="20220615 09:18:24.558" endtime="20220615 09:18:25.997"/>
+</kw>
+<kw name="POST User" library="UsersRoute">
+<arg>${user}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:26.664" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '255', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Jo\\u00e3o Lucas", "email": "joao@test.com", "password": "pwd123", "geek_profile": {"whatsapp": "44999999999", "desc": "Teste bla bla bla bla bla bla bla bla bla bla bla bla bla bla", "printer_repair": "Sim", "work": "Presencial", "cost": "100"}}' 
+ </msg>
+<msg timestamp="20220615 09:18:26.665" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '10', 'Etag': 'W/"a-jEUJpATP8ecBoQIAORycx8yh3t4"', 'Date': 'Wed, 15 Jun 2022 12:18:26 GMT', 'Via': '1.1 vegur'} 
+ body={"id":183} 
+ </msg>
+<msg timestamp="20220615 09:18:26.666" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:25.998" endtime="20220615 09:18:26.666"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:25.997" endtime="20220615 09:18:26.667"/>
+</kw>
+<kw name="Get Token" library="Helpers">
+<var>${token}</var>
+<arg>${user}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${payload}</var>
+<arg>email=${user}[email]</arg>
+<arg>password=${user}[password]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:26.671" level="INFO">${payload} = {'email': 'joao@test.com', 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:26.669" endtime="20220615 09:18:26.671"/>
+</kw>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:27.319" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '48', 'Content-Type': 'application/json'} 
+ body=b'{"email": "joao@test.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:27.319" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '359', 'Etag': 'W/"167-K+oFwRyqxABoYK8gZg+ap5CQqx4"', 'Date': 'Wed, 15 Jun 2022 12:18:27 GMT', 'Via': '1.1 vegur'} 
+ body={"user":{"id":183,"email":"joao@test.com","password_hash":"$2b$08$4o0V4kaXCViDn3PAtIRLouKDug7tV5f.7YqwT1GSOfeHr5CHcNNUq","name":"João Lucas","avatar":null,"whatsapp":null,"is_geek":false},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgzLCJpYXQiOjE2NTUyOTU1MDcsImV4cCI6MTY1NjE1OTUwN30.Vd1jGCSo9OQVcAZkkS2iV4ZE8tH9rzwyOSijrrqily8","expires_in":"10d"} 
+ </msg>
+<msg timestamp="20220615 09:18:27.319" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:26.673" endtime="20220615 09:18:27.319"/>
+</kw>
+<msg timestamp="20220615 09:18:27.319" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:26.672" endtime="20220615 09:18:27.319"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:27.320" level="INFO">${result} = </msg>
+<status status="PASS" starttime="20220615 09:18:27.320" endtime="20220615 09:18:27.320"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;200&quot; in &quot;${response}&quot;">
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>Bearer ${response.json()}[token]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:27.321" level="INFO">${result} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgzLCJpYXQiOjE2NTUyOTU1MDcsImV4cCI6MTY1NjE1OTUwN30.Vd1jGCSo9OQVcAZkkS2iV4ZE8tH9rzwyOSijrrqily8</msg>
+<status status="PASS" starttime="20220615 09:18:27.321" endtime="20220615 09:18:27.321"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:27.321" endtime="20220615 09:18:27.321"/>
+</branch>
+<status status="PASS" starttime="20220615 09:18:27.320" endtime="20220615 09:18:27.321"/>
+</if>
+<msg timestamp="20220615 09:18:27.322" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgzLCJpYXQiOjE2NTUyOTU1MDcsImV4cCI6MTY1NjE1OTUwN30.Vd1jGCSo9OQVcAZkkS2iV4ZE8tH9rzwyOSijrrqily8</msg>
+<status status="PASS" starttime="20220615 09:18:26.667" endtime="20220615 09:18:27.322"/>
+</kw>
+<kw name="POST Geek" library="GeeksRoute">
+<var>${response}</var>
+<arg>${token}</arg>
+<arg>${user}[geek_profile]</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:27.323" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgzLCJpYXQiOjE2NTUyOTU1MDcsImV4cCI6MTY1NjE1OTUwN30.Vd1jGCSo9OQVcAZkkS2iV4ZE8tH9rzwyOSijrrqily8'}</msg>
+<status status="PASS" starttime="20220615 09:18:27.322" endtime="20220615 09:18:27.323"/>
+</kw>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_GEEKS}/geeks</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:28.027" level="INFO">POST Request : url=https://getgeeks-geeks-elidio.herokuapp.com/geeks 
+ path_url=/geeks 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgzLCJpYXQiOjE2NTUyOTU1MDcsImV4cCI6MTY1NjE1OTUwN30.Vd1jGCSo9OQVcAZkkS2iV4ZE8tH9rzwyOSijrrqily8', 'Content-Length': '162', 'Content-Type': 'application/json'} 
+ body=b'{"whatsapp": "44999999999", "desc": "Teste bla bla bla bla bla bla bla bla bla bla bla bla bla bla", "printer_repair": "Sim", "work": "Presencial", "cost": "100"}' 
+ </msg>
+<msg timestamp="20220615 09:18:28.028" level="INFO">POST Response : url=https://getgeeks-geeks-elidio.herokuapp.com/geeks 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Date': 'Wed, 15 Jun 2022 12:18:27 GMT', 'Content-Length': '0', 'Via': '1.1 vegur'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:28.028" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:27.323" endtime="20220615 09:18:28.028"/>
+</kw>
+<msg timestamp="20220615 09:18:28.030" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:27.322" endtime="20220615 09:18:28.030"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>201</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:28.030" endtime="20220615 09:18:28.032"/>
+</kw>
+<kw name="GET User" library="UsersRoute">
+<var>${response}</var>
+<arg>${token}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:28.035" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgzLCJpYXQiOjE2NTUyOTU1MDcsImV4cCI6MTY1NjE1OTUwN30.Vd1jGCSo9OQVcAZkkS2iV4ZE8tH9rzwyOSijrrqily8'}</msg>
+<status status="PASS" starttime="20220615 09:18:28.034" endtime="20220615 09:18:28.035"/>
+</kw>
+<kw name="GET" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<msg timestamp="20220615 09:18:28.685" level="INFO">GET Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgzLCJpYXQiOjE2NTUyOTU1MDcsImV4cCI6MTY1NjE1OTUwN30.Vd1jGCSo9OQVcAZkkS2iV4ZE8tH9rzwyOSijrrqily8'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:28.685" level="INFO">GET Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '331', 'Etag': 'W/"14b-4itxa/I4vcWaRUhOoUupj5yyqR4"', 'Date': 'Wed, 15 Jun 2022 12:18:28 GMT', 'Via': '1.1 vegur'} 
+ body={"id":41,"email":"joao@test.com","password_hash":"$2b$08$4o0V4kaXCViDn3PAtIRLouKDug7tV5f.7YqwT1GSOfeHr5CHcNNUq","name":"João Lucas","avatar":null,"whatsapp":"44999999999","is_geek":true,"desc":"Teste bla bla bla bla bla bla bla bla bla bla bla bla bla bla","printer_repair":"Sim","work":"Presencial","cost":"100.00","user_id":183} 
+ </msg>
+<msg timestamp="20220615 09:18:28.686" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:28.036" endtime="20220615 09:18:28.686"/>
+</kw>
+<msg timestamp="20220615 09:18:28.686" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:28.033" endtime="20220615 09:18:28.686"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${user}[name]</arg>
+<arg>${response.json()}[name]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220615 09:18:28.686" endtime="20220615 09:18:28.687"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${user}[email]</arg>
+<arg>${response.json()}[email]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220615 09:18:28.687" endtime="20220615 09:18:28.688"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${user}[geek_profile][whatsapp]</arg>
+<arg>${response.json()}[whatsapp]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220615 09:18:28.688" endtime="20220615 09:18:28.689"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${user}[geek_profile][desc]</arg>
+<arg>${response.json()}[desc]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220615 09:18:28.689" endtime="20220615 09:18:28.690"/>
+</kw>
+<kw name="Convert To Number" library="BuiltIn">
+<var>${expected_float}</var>
+<arg>${user}[geek_profile][cost]</arg>
+<doc>Converts the given item to a floating point number.</doc>
+<msg timestamp="20220615 09:18:28.690" level="INFO">${expected_float} = 100.0</msg>
+<status status="PASS" starttime="20220615 09:18:28.690" endtime="20220615 09:18:28.690"/>
+</kw>
+<kw name="Convert To Number" library="BuiltIn">
+<var>${got_float}</var>
+<arg>${response.json()}[cost]</arg>
+<doc>Converts the given item to a floating point number.</doc>
+<msg timestamp="20220615 09:18:28.691" level="INFO">${got_float} = 100.0</msg>
+<status status="PASS" starttime="20220615 09:18:28.690" endtime="20220615 09:18:28.691"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${expected_float}</arg>
+<arg>${got_float}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220615 09:18:28.691" endtime="20220615 09:18:28.692"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${user}[geek_profile][printer_repair]</arg>
+<arg>${response.json()}[printer_repair]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220615 09:18:28.692" endtime="20220615 09:18:28.693"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${user}[geek_profile][work]</arg>
+<arg>${response.json()}[work]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220615 09:18:28.693" endtime="20220615 09:18:28.693"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>None</arg>
+<arg>${response.json()}[avatar]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20220615 09:18:28.694" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'NoneType'&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:28.693" endtime="20220615 09:18:28.694"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>True</arg>
+<arg>${response.json()}[is_geek]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20220615 09:18:28.695" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'bool'&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:28.694" endtime="20220615 09:18:28.695"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:24.557" endtime="20220615 09:18:28.695"/>
+</test>
+<test id="s1-s1-t2" name="Get Geek List">
+<kw name="Factory Search Geeks" library="Users">
+<var>${data}</var>
+<msg timestamp="20220615 09:18:28.696" level="INFO">${data} = {'user': {'name': 'Peter Quill', 'email': 'peter@marvel.com', 'password': 'pwd123'}, 'geeks': [{'name': 'Riri Willians', 'email': 'riri@marvel.com', 'password': 'pwd123', 'geek_profile': {'whatsapp': ...</msg>
+<status status="PASS" starttime="20220615 09:18:28.696" endtime="20220615 09:18:28.696"/>
+</kw>
+<for flavor="IN">
+<var>${geek}</var>
+<value>@{data}[geeks]</value>
+<iter>
+<var name="${geek}">{'name': 'Riri Willians', 'email': 'riri@marvel.com', 'password': 'pwd123', 'geek_profile': {'whatsapp': '11999999999', 'desc': 'Seu computador está lento? Reiniciando do nada? Talvez seja um vírus, o...</var>
+<kw name="POST User" library="UsersRoute">
+<arg>${geek}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:29.334" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '483', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Riri Willians", "email": "riri@marvel.com", "password": "pwd123", "geek_profile": {"whatsapp": "11999999999", "desc": "Seu computador est\\u00e1 lento? Reiniciando do nada? Talvez seja um v\\u00edrus, ou algum hardware com defeito. Posso fazer a manuten\\u00e7\\u00e3o no seu PC, formando, reinstalando o SO, trocando algum componente f\\u00edsico e porque n\\u00e3o remover o baidu ou qualquer outro malware.", "printer_repair": "N\\u00e3o", "work": "Presencial", "cost": "100"}}' 
+ </msg>
+<msg timestamp="20220615 09:18:29.335" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=400, reason=Bad Request 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '31', 'Etag': 'W/"1f-lFUySNKwX3L5eGEwGcNcUoVKWhE"', 'Date': 'Wed, 15 Jun 2022 12:18:29 GMT', 'Via': '1.1 vegur'} 
+ body={"error":"User already exists"} 
+ </msg>
+<msg timestamp="20220615 09:18:29.335" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:28.697" endtime="20220615 09:18:29.336"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:28.696" endtime="20220615 09:18:29.337"/>
+</kw>
+<kw name="Get Token" library="Helpers">
+<var>${token}</var>
+<arg>${geek}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${payload}</var>
+<arg>email=${user}[email]</arg>
+<arg>password=${user}[password]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:29.342" level="INFO">${payload} = {'email': 'riri@marvel.com', 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:29.339" endtime="20220615 09:18:29.342"/>
+</kw>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:30.001" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '50', 'Content-Type': 'application/json'} 
+ body=b'{"email": "riri@marvel.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:30.001" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '371', 'Etag': 'W/"173-XGCNU3LrTkRKH91c+llljYW/nQY"', 'Date': 'Wed, 15 Jun 2022 12:18:29 GMT', 'Via': '1.1 vegur'} 
+ body={"user":{"id":168,"email":"riri@marvel.com","password_hash":"$2b$08$pKFIAX4iTB1qpxWK.zONZewcnystlgKhoYTJvQqIv4QfbR6/Lc9Sa","name":"Riri Willians","avatar":null,"whatsapp":"11999999999","is_geek":true},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4LCJpYXQiOjE2NTUyOTU1MDksImV4cCI6MTY1NjE1OTUwOX0.Jix4G27Jgp7hwc3OC818mvMZU93DvnsOw__fhXv9aWg","expires_in":"10d"} 
+ </msg>
+<msg timestamp="20220615 09:18:30.001" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:29.344" endtime="20220615 09:18:30.002"/>
+</kw>
+<msg timestamp="20220615 09:18:30.003" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:29.343" endtime="20220615 09:18:30.003"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:30.005" level="INFO">${result} = </msg>
+<status status="PASS" starttime="20220615 09:18:30.003" endtime="20220615 09:18:30.005"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;200&quot; in &quot;${response}&quot;">
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>Bearer ${response.json()}[token]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:30.007" level="INFO">${result} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4LCJpYXQiOjE2NTUyOTU1MDksImV4cCI6MTY1NjE1OTUwOX0.Jix4G27Jgp7hwc3OC818mvMZU93DvnsOw__fhXv9aWg</msg>
+<status status="PASS" starttime="20220615 09:18:30.006" endtime="20220615 09:18:30.007"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:30.005" endtime="20220615 09:18:30.008"/>
+</branch>
+<status status="PASS" starttime="20220615 09:18:30.005" endtime="20220615 09:18:30.008"/>
+</if>
+<msg timestamp="20220615 09:18:30.008" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4LCJpYXQiOjE2NTUyOTU1MDksImV4cCI6MTY1NjE1OTUwOX0.Jix4G27Jgp7hwc3OC818mvMZU93DvnsOw__fhXv9aWg</msg>
+<status status="PASS" starttime="20220615 09:18:29.337" endtime="20220615 09:18:30.008"/>
+</kw>
+<kw name="POST Geek" library="GeeksRoute">
+<arg>${token}</arg>
+<arg>${geek}[geek_profile]</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:30.010" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4LCJpYXQiOjE2NTUyOTU1MDksImV4cCI6MTY1NjE1OTUwOX0.Jix4G27Jgp7hwc3OC818mvMZU93DvnsOw__fhXv9aWg'}</msg>
+<status status="PASS" starttime="20220615 09:18:30.009" endtime="20220615 09:18:30.010"/>
+</kw>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_GEEKS}/geeks</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:30.646" level="INFO">POST Request : url=https://getgeeks-geeks-elidio.herokuapp.com/geeks 
+ path_url=/geeks 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY4LCJpYXQiOjE2NTUyOTU1MDksImV4cCI6MTY1NjE1OTUwOX0.Jix4G27Jgp7hwc3OC818mvMZU93DvnsOw__fhXv9aWg', 'Content-Length': '390', 'Content-Type': 'application/json'} 
+ body=b'{"whatsapp": "11999999999", "desc": "Seu computador est\\u00e1 lento? Reiniciando do nada? Talvez seja um v\\u00edrus, ou algum hardware com defeito. Posso fazer a manuten\\u00e7\\u00e3o no seu PC, formando, reinstalando o SO, trocando algum componente f\\u00edsico e porque n\\u00e3o remover o baidu ou qualquer outro malware.", "printer_repair": "N\\u00e3o", "work": "Presencial", "cost": "100"}' 
+ </msg>
+<msg timestamp="20220615 09:18:30.647" level="INFO">POST Response : url=https://getgeeks-geeks-elidio.herokuapp.com/geeks 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Date': 'Wed, 15 Jun 2022 12:18:30 GMT', 'Content-Length': '0', 'Via': '1.1 vegur'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:30.647" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:30.010" endtime="20220615 09:18:30.648"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:30.008" endtime="20220615 09:18:30.649"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:28.696" endtime="20220615 09:18:30.649"/>
+</iter>
+<iter>
+<var name="${geek}">{'name': 'Arnim Zola', 'email': 'zola@hidra.com', 'password': 'pwd123', 'geek_profile': {'whatsapp': '21999999999', 'desc': 'Instalo Distros Ubuntu, Debian, ElementaryOS, PopOS, Linux Mint, Kurumin, M...</var>
+<kw name="POST User" library="UsersRoute">
+<arg>${geek}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:31.282" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '445', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Arnim Zola", "email": "zola@hidra.com", "password": "pwd123", "geek_profile": {"whatsapp": "21999999999", "desc": "Instalo Distros Ubuntu, Debian, ElementaryOS, PopOS, Linux Mint, Kurumin, Mandrake, Connectiva, Fedora, RedHat, CentOS, Slackware, Gentoo, Archlinux, Kubuntu, Xubuntu, Suze, Mandriva, Edubuntu, KateOS, Sabayon Linux, Manjaro Linux, BigLinux, ZorinOS, Unit", "printer_repair": "N\\u00e3o", "work": "Ambos", "cost": "110"}}' 
+ </msg>
+<msg timestamp="20220615 09:18:31.283" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=400, reason=Bad Request 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '31', 'Etag': 'W/"1f-lFUySNKwX3L5eGEwGcNcUoVKWhE"', 'Date': 'Wed, 15 Jun 2022 12:18:31 GMT', 'Via': '1.1 vegur'} 
+ body={"error":"User already exists"} 
+ </msg>
+<msg timestamp="20220615 09:18:31.284" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:30.652" endtime="20220615 09:18:31.284"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:30.650" endtime="20220615 09:18:31.284"/>
+</kw>
+<kw name="Get Token" library="Helpers">
+<var>${token}</var>
+<arg>${geek}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${payload}</var>
+<arg>email=${user}[email]</arg>
+<arg>password=${user}[password]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:31.289" level="INFO">${payload} = {'email': 'zola@hidra.com', 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:31.287" endtime="20220615 09:18:31.289"/>
+</kw>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:31.940" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"email": "zola@hidra.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:31.940" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '367', 'Etag': 'W/"16f-hKYHzGACkI31JHqJKKmRbGchD/w"', 'Date': 'Wed, 15 Jun 2022 12:18:31 GMT', 'Via': '1.1 vegur'} 
+ body={"user":{"id":169,"email":"zola@hidra.com","password_hash":"$2b$08$0eMwrb0.wsj0PHC67h2XNO1VDGuKMmVc0gISO/ftwPVhJC52FColu","name":"Arnim Zola","avatar":null,"whatsapp":"21999999999","is_geek":true},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY5LCJpYXQiOjE2NTUyOTU1MTEsImV4cCI6MTY1NjE1OTUxMX0.zCcHqKyXqBzPweex9v7E1E7XRtC4zRtm7Ja2fyZ1rUs","expires_in":"10d"} 
+ </msg>
+<msg timestamp="20220615 09:18:31.940" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:31.291" endtime="20220615 09:18:31.940"/>
+</kw>
+<msg timestamp="20220615 09:18:31.940" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:31.290" endtime="20220615 09:18:31.940"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:31.941" level="INFO">${result} = </msg>
+<status status="PASS" starttime="20220615 09:18:31.941" endtime="20220615 09:18:31.941"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;200&quot; in &quot;${response}&quot;">
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>Bearer ${response.json()}[token]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:31.943" level="INFO">${result} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY5LCJpYXQiOjE2NTUyOTU1MTEsImV4cCI6MTY1NjE1OTUxMX0.zCcHqKyXqBzPweex9v7E1E7XRtC4zRtm7Ja2fyZ1rUs</msg>
+<status status="PASS" starttime="20220615 09:18:31.942" endtime="20220615 09:18:31.943"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:31.942" endtime="20220615 09:18:31.943"/>
+</branch>
+<status status="PASS" starttime="20220615 09:18:31.942" endtime="20220615 09:18:31.943"/>
+</if>
+<msg timestamp="20220615 09:18:31.943" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY5LCJpYXQiOjE2NTUyOTU1MTEsImV4cCI6MTY1NjE1OTUxMX0.zCcHqKyXqBzPweex9v7E1E7XRtC4zRtm7Ja2fyZ1rUs</msg>
+<status status="PASS" starttime="20220615 09:18:31.286" endtime="20220615 09:18:31.943"/>
+</kw>
+<kw name="POST Geek" library="GeeksRoute">
+<arg>${token}</arg>
+<arg>${geek}[geek_profile]</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:31.944" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY5LCJpYXQiOjE2NTUyOTU1MTEsImV4cCI6MTY1NjE1OTUxMX0.zCcHqKyXqBzPweex9v7E1E7XRtC4zRtm7Ja2fyZ1rUs'}</msg>
+<status status="PASS" starttime="20220615 09:18:31.944" endtime="20220615 09:18:31.944"/>
+</kw>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_GEEKS}/geeks</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:32.597" level="INFO">POST Request : url=https://getgeeks-geeks-elidio.herokuapp.com/geeks 
+ path_url=/geeks 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY5LCJpYXQiOjE2NTUyOTU1MTEsImV4cCI6MTY1NjE1OTUxMX0.zCcHqKyXqBzPweex9v7E1E7XRtC4zRtm7Ja2fyZ1rUs', 'Content-Length': '356', 'Content-Type': 'application/json'} 
+ body=b'{"whatsapp": "21999999999", "desc": "Instalo Distros Ubuntu, Debian, ElementaryOS, PopOS, Linux Mint, Kurumin, Mandrake, Connectiva, Fedora, RedHat, CentOS, Slackware, Gentoo, Archlinux, Kubuntu, Xubuntu, Suze, Mandriva, Edubuntu, KateOS, Sabayon Linux, Manjaro Linux, BigLinux, ZorinOS, Unit", "printer_repair": "N\\u00e3o", "work": "Ambos", "cost": "110"}' 
+ </msg>
+<msg timestamp="20220615 09:18:32.597" level="INFO">POST Response : url=https://getgeeks-geeks-elidio.herokuapp.com/geeks 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Date': 'Wed, 15 Jun 2022 12:18:32 GMT', 'Content-Length': '0', 'Via': '1.1 vegur'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:32.598" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:31.944" endtime="20220615 09:18:32.598"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:31.943" endtime="20220615 09:18:32.598"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:30.649" endtime="20220615 09:18:32.598"/>
+</iter>
+<iter>
+<var name="${geek}">{'name': 'Reed Richards', 'email': 'reed@fantastic4.com', 'password': 'pwd123', 'geek_profile': {'whatsapp': '31999999999', 'desc': 'Instalado e faço manutenção em qualquer tipo de impressora, matrici...</var>
+<kw name="POST User" library="UsersRoute">
+<arg>${geek}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:33.253" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '415', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Reed Richards", "email": "reed@fantastic4.com", "password": "pwd123", "geek_profile": {"whatsapp": "31999999999", "desc": "Instalado e fa\\u00e7o manuten\\u00e7\\u00e3o em qualquer tipo de impressora, matricial padr\\u00e3o, matricial fiscal, a jato, a cera, a laser e at\\u00e9 3D. Tamb\\u00e9m fa\\u00e7o remold de fitas coloridas para Epson LX300. ", "printer_repair": "Sim", "work": "Remoto", "cost": "120"}}' 
+ </msg>
+<msg timestamp="20220615 09:18:33.253" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=400, reason=Bad Request 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '31', 'Etag': 'W/"1f-lFUySNKwX3L5eGEwGcNcUoVKWhE"', 'Date': 'Wed, 15 Jun 2022 12:18:33 GMT', 'Via': '1.1 vegur'} 
+ body={"error":"User already exists"} 
+ </msg>
+<msg timestamp="20220615 09:18:33.253" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:32.599" endtime="20220615 09:18:33.253"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:32.599" endtime="20220615 09:18:33.254"/>
+</kw>
+<kw name="Get Token" library="Helpers">
+<var>${token}</var>
+<arg>${geek}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${payload}</var>
+<arg>email=${user}[email]</arg>
+<arg>password=${user}[password]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:33.255" level="INFO">${payload} = {'email': 'reed@fantastic4.com', 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:33.254" endtime="20220615 09:18:33.255"/>
+</kw>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:33.975" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '54', 'Content-Type': 'application/json'} 
+ body=b'{"email": "reed@fantastic4.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:33.975" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '375', 'Etag': 'W/"177-rd+Lkp3e5FfgHjEptGc+wZGykAE"', 'Date': 'Wed, 15 Jun 2022 12:18:33 GMT', 'Via': '1.1 vegur'} 
+ body={"user":{"id":170,"email":"reed@fantastic4.com","password_hash":"$2b$08$TVI82.2KqGjeS3JNAhWcT.Dx4Red25uRAGN6jjaDENGSGWzgD0JlK","name":"Reed Richards","avatar":null,"whatsapp":"31999999999","is_geek":true},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcwLCJpYXQiOjE2NTUyOTU1MTMsImV4cCI6MTY1NjE1OTUxM30.PgjPqGtdtJalZgFCYl7nLDj1i6NEn8lBz59IrLwQxoA","expires_in":"10d"} 
+ </msg>
+<msg timestamp="20220615 09:18:33.976" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:33.255" endtime="20220615 09:18:33.976"/>
+</kw>
+<msg timestamp="20220615 09:18:33.977" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:33.255" endtime="20220615 09:18:33.977"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:33.981" level="INFO">${result} = </msg>
+<status status="PASS" starttime="20220615 09:18:33.978" endtime="20220615 09:18:33.981"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;200&quot; in &quot;${response}&quot;">
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>Bearer ${response.json()}[token]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:33.983" level="INFO">${result} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcwLCJpYXQiOjE2NTUyOTU1MTMsImV4cCI6MTY1NjE1OTUxM30.PgjPqGtdtJalZgFCYl7nLDj1i6NEn8lBz59IrLwQxoA</msg>
+<status status="PASS" starttime="20220615 09:18:33.982" endtime="20220615 09:18:33.983"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:33.982" endtime="20220615 09:18:33.984"/>
+</branch>
+<status status="PASS" starttime="20220615 09:18:33.981" endtime="20220615 09:18:33.984"/>
+</if>
+<msg timestamp="20220615 09:18:33.984" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcwLCJpYXQiOjE2NTUyOTU1MTMsImV4cCI6MTY1NjE1OTUxM30.PgjPqGtdtJalZgFCYl7nLDj1i6NEn8lBz59IrLwQxoA</msg>
+<status status="PASS" starttime="20220615 09:18:33.254" endtime="20220615 09:18:33.984"/>
+</kw>
+<kw name="POST Geek" library="GeeksRoute">
+<arg>${token}</arg>
+<arg>${geek}[geek_profile]</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:33.987" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcwLCJpYXQiOjE2NTUyOTU1MTMsImV4cCI6MTY1NjE1OTUxM30.PgjPqGtdtJalZgFCYl7nLDj1i6NEn8lBz59IrLwQxoA'}</msg>
+<status status="PASS" starttime="20220615 09:18:33.986" endtime="20220615 09:18:33.987"/>
+</kw>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_GEEKS}/geeks</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:34.716" level="INFO">POST Request : url=https://getgeeks-geeks-elidio.herokuapp.com/geeks 
+ path_url=/geeks 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcwLCJpYXQiOjE2NTUyOTU1MTMsImV4cCI6MTY1NjE1OTUxM30.PgjPqGtdtJalZgFCYl7nLDj1i6NEn8lBz59IrLwQxoA', 'Content-Length': '318', 'Content-Type': 'application/json'} 
+ body=b'{"whatsapp": "31999999999", "desc": "Instalado e fa\\u00e7o manuten\\u00e7\\u00e3o em qualquer tipo de impressora, matricial padr\\u00e3o, matricial fiscal, a jato, a cera, a laser e at\\u00e9 3D. Tamb\\u00e9m fa\\u00e7o remold de fitas coloridas para Epson LX300. ", "printer_repair": "Sim", "work": "Remoto", "cost": "120"}' 
+ </msg>
+<msg timestamp="20220615 09:18:34.717" level="INFO">POST Response : url=https://getgeeks-geeks-elidio.herokuapp.com/geeks 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Date': 'Wed, 15 Jun 2022 12:18:34 GMT', 'Content-Length': '0', 'Via': '1.1 vegur'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:34.718" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:33.988" endtime="20220615 09:18:34.718"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:33.985" endtime="20220615 09:18:34.719"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:32.598" endtime="20220615 09:18:34.719"/>
+</iter>
+<status status="PASS" starttime="20220615 09:18:28.696" endtime="20220615 09:18:34.719"/>
+</for>
+<kw name="POST User" library="UsersRoute">
+<arg>${data}[user]</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:35.352" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '74', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Peter Quill", "email": "peter@marvel.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:35.352" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=400, reason=Bad Request 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '31', 'Etag': 'W/"1f-lFUySNKwX3L5eGEwGcNcUoVKWhE"', 'Date': 'Wed, 15 Jun 2022 12:18:35 GMT', 'Via': '1.1 vegur'} 
+ body={"error":"User already exists"} 
+ </msg>
+<msg timestamp="20220615 09:18:35.352" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:34.722" endtime="20220615 09:18:35.352"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:34.720" endtime="20220615 09:18:35.352"/>
+</kw>
+<kw name="Get Token" library="Helpers">
+<var>${token}</var>
+<arg>${data}[user]</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${payload}</var>
+<arg>email=${user}[email]</arg>
+<arg>password=${user}[password]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:35.354" level="INFO">${payload} = {'email': 'peter@marvel.com', 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:35.353" endtime="20220615 09:18:35.354"/>
+</kw>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:36.001" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '51', 'Content-Type': 'application/json'} 
+ body=b'{"email": "peter@marvel.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:36.001" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '362', 'Etag': 'W/"16a-PmiCRulFW+uMV+X3XQCIhHQ+2rI"', 'Date': 'Wed, 15 Jun 2022 12:18:35 GMT', 'Via': '1.1 vegur'} 
+ body={"user":{"id":164,"email":"peter@marvel.com","password_hash":"$2b$08$urt9ur3yNv0dMulYJBP7WODWjYi7xw05DLSsfhLWT2rDz.uRUxY6W","name":"Peter Quill","avatar":null,"whatsapp":null,"is_geek":false},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY0LCJpYXQiOjE2NTUyOTU1MTUsImV4cCI6MTY1NjE1OTUxNX0.F9szMAvD1jTxt_icXJwWVEis0WK_4VMPnrTh_C_pECI","expires_in":"10d"} 
+ </msg>
+<msg timestamp="20220615 09:18:36.001" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:35.354" endtime="20220615 09:18:36.001"/>
+</kw>
+<msg timestamp="20220615 09:18:36.001" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:35.354" endtime="20220615 09:18:36.001"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:36.002" level="INFO">${result} = </msg>
+<status status="PASS" starttime="20220615 09:18:36.001" endtime="20220615 09:18:36.002"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;200&quot; in &quot;${response}&quot;">
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>Bearer ${response.json()}[token]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:36.004" level="INFO">${result} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY0LCJpYXQiOjE2NTUyOTU1MTUsImV4cCI6MTY1NjE1OTUxNX0.F9szMAvD1jTxt_icXJwWVEis0WK_4VMPnrTh_C_pECI</msg>
+<status status="PASS" starttime="20220615 09:18:36.003" endtime="20220615 09:18:36.004"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:36.002" endtime="20220615 09:18:36.004"/>
+</branch>
+<status status="PASS" starttime="20220615 09:18:36.002" endtime="20220615 09:18:36.004"/>
+</if>
+<msg timestamp="20220615 09:18:36.004" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY0LCJpYXQiOjE2NTUyOTU1MTUsImV4cCI6MTY1NjE1OTUxNX0.F9szMAvD1jTxt_icXJwWVEis0WK_4VMPnrTh_C_pECI</msg>
+<status status="PASS" starttime="20220615 09:18:35.353" endtime="20220615 09:18:36.004"/>
+</kw>
+<kw name="GET Geeks" library="GeeksRoute">
+<var>${response}</var>
+<arg>${token}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:36.005" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY0LCJpYXQiOjE2NTUyOTU1MTUsImV4cCI6MTY1NjE1OTUxNX0.F9szMAvD1jTxt_icXJwWVEis0WK_4VMPnrTh_C_pECI'}</msg>
+<status status="PASS" starttime="20220615 09:18:36.004" endtime="20220615 09:18:36.005"/>
+</kw>
+<kw name="GET" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_GEEKS}/geeks</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<msg timestamp="20220615 09:18:36.647" level="INFO">GET Request : url=https://getgeeks-geeks-elidio.herokuapp.com/geeks 
+ path_url=/geeks 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY0LCJpYXQiOjE2NTUyOTU1MTUsImV4cCI6MTY1NjE1OTUxNX0.F9szMAvD1jTxt_icXJwWVEis0WK_4VMPnrTh_C_pECI'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:36.648" level="INFO">GET Response : url=https://getgeeks-geeks-elidio.herokuapp.com/geeks 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1885', 'Etag': 'W/"75d-RNQQVFBIjTRehjCva2soKfjR0/M"', 'Date': 'Wed, 15 Jun 2022 12:18:36 GMT', 'Via': '1.1 vegur'} 
+ body={"Geeks":[{"id":183,"desc":"Teste bla bla bla bla bla bla bla bla bla bla bla bla bla bla","printer_repair":"Sim","work":"Presencial","cost":"100.00","user_id":183,"email":"joao@test.com","password_hash":"$2b$08$4o0V4kaXCViDn3PAtIRLouKDug7tV5f.7YqwT1GSOfeHr5CHcNNUq","name":"João Lucas","avatar":null,"whatsapp":"44999999999","is_geek":true},{"id":168,"desc":"Seu computador está lento? Reiniciando do nada? Talvez seja um vírus, ou algum hardware com defeito. Posso fazer a manutenção no seu PC, formando, reinstalando o SO, trocando algum componente físico e porque não remover o baidu ou qualquer outro malware.","printer_repair":"Não","work":"Presencial","cost":"100.00","user_id":168,"email":"riri@marvel.com","password_hash":"$2b$08$pKFIAX4iTB1qpxWK.zONZewcnystlgKhoYTJvQqIv4QfbR6/Lc9Sa","name":"Riri Willians","avatar":null,"whatsapp":"11999999999","is_geek":true},{"id":169,"desc":"Instalo Distros Ubuntu, Debian, ElementaryOS, PopOS, Linux Mint, Kurumin, Mandrake, Connectiva, Fedora, RedHat, CentOS, Slackware, Gentoo, Archlinux, Kubuntu, Xubuntu, Suze, Mandriva, Edubuntu, KateOS, Sabayon Linux, Manjaro Linux, BigLinux, ZorinOS, Unit","printer_repair":"Não","work":"Ambos","cost":"110.00","user_id":169,"email":"zola@hidra.com","password_hash":"$2b$08$0eMwrb0.wsj0PHC67h2XNO1VDGuKMmVc0gISO/ftwPVhJC52FColu","name":"Arnim Zola","avatar":null,"whatsapp":"21999999999","is_geek":true},{"id":170,"desc":"Instalado e faço manutenção em qualquer tipo de impressora, matricial padrão, matricial fiscal, a jato, a cera, a laser e até 3D. Também faço remold de fitas coloridas para Epson LX300. ","printer_repair":"Sim","work":"Remoto","cost":"120.00","user_id":170,"email":"reed@fantastic4.com","password_hash":"$2b$08$TVI82.2KqGjeS3JNAhWcT.Dx4Red25uRAGN6jjaDENGSGWzgD0JlK","name":"Reed Richards","avatar":null,"whatsapp":"31999999999","is_geek":true}],"Count":"4"} 
+ </msg>
+<msg timestamp="20220615 09:18:36.649" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:36.005" endtime="20220615 09:18:36.649"/>
+</kw>
+<msg timestamp="20220615 09:18:36.650" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:36.004" endtime="20220615 09:18:36.650"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:36.651" endtime="20220615 09:18:36.652"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${total}</var>
+<arg>${response.json()}[Geeks]</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20220615 09:18:36.655" level="INFO">Length is 4</msg>
+<msg timestamp="20220615 09:18:36.655" level="INFO">${total} = 4</msg>
+<status status="PASS" starttime="20220615 09:18:36.653" endtime="20220615 09:18:36.655"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${total} &gt; 0</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20220615 09:18:36.655" endtime="20220615 09:18:36.656"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:28.695" endtime="20220615 09:18:36.656"/>
+</test>
+<doc>Geek route test suite</doc>
+<status status="PASS" starttime="20220615 09:18:24.293" endtime="20220615 09:18:36.658"/>
+</suite>
+<suite id="s1-s2" name="Sessions" source="D:\Git\robot-gravidade-zero\getgeeks\project\backend\users\tests\Sessions.robot">
+<test id="s1-s2-t1" name="User Session">
+<kw name="Factory User Session" library="Users">
+<var>${payload}</var>
+<arg>signup</arg>
+<msg timestamp="20220615 09:18:36.674" level="INFO">${payload} = {'name': ('Kate Bishop',), 'email': ('kate@email.com',), 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:36.673" endtime="20220615 09:18:36.674"/>
+</kw>
+<kw name="POST User" library="UsersRoute">
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:37.304" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '76', 'Content-Type': 'application/json'} 
+ body=b'{"name": ["Kate Bishop"], "email": ["kate@email.com"], "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:37.304" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=400, reason=Bad Request 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '31', 'Etag': 'W/"1f-lFUySNKwX3L5eGEwGcNcUoVKWhE"', 'Date': 'Wed, 15 Jun 2022 12:18:37 GMT', 'Via': '1.1 vegur'} 
+ body={"error":"User already exists"} 
+ </msg>
+<msg timestamp="20220615 09:18:37.304" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:36.674" endtime="20220615 09:18:37.304"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:36.674" endtime="20220615 09:18:37.304"/>
+</kw>
+<kw name="Factory User Session" library="Users">
+<var>${payload}</var>
+<arg>login</arg>
+<msg timestamp="20220615 09:18:37.305" level="INFO">${payload} = {'email': ('kate@email.com',), 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:37.305" endtime="20220615 09:18:37.305"/>
+</kw>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:37.939" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '51', 'Content-Type': 'application/json'} 
+ body=b'{"email": ["kate@email.com"], "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:37.939" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '372', 'Etag': 'W/"174-dTGGS8pF9iydb+x7lZZzSzM6p9I"', 'Date': 'Wed, 15 Jun 2022 12:18:37 GMT', 'Via': '1.1 vegur'} 
+ body={"user":{"id":139,"email":"{\"kate@email.com\"}","password_hash":"$2b$08$mfNJ1i3N9FZs8wA.F5NwL.L6doCcpT6WHSJagrSRTRA9HBR1DfwG6","name":"{\"Kate Bishop\"}","avatar":null,"whatsapp":null,"is_geek":false},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTM5LCJpYXQiOjE2NTUyOTU1MTcsImV4cCI6MTY1NjE1OTUxN30.UlsjYQWCQebyx79jqqL2uFO3CwGS6uOg-TWEo7a8jzI","expires_in":"10d"} 
+ </msg>
+<msg timestamp="20220615 09:18:37.940" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:37.305" endtime="20220615 09:18:37.940"/>
+</kw>
+<msg timestamp="20220615 09:18:37.941" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:37.305" endtime="20220615 09:18:37.941"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:37.942" endtime="20220615 09:18:37.943"/>
+</kw>
+<kw name="Get Length" library="BuiltIn">
+<var>${size}</var>
+<arg>${response.json()}[token]</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<msg timestamp="20220615 09:18:37.946" level="INFO">Length is 140</msg>
+<msg timestamp="20220615 09:18:37.947" level="INFO">${size} = 140</msg>
+<status status="PASS" starttime="20220615 09:18:37.944" endtime="20220615 09:18:37.947"/>
+</kw>
+<kw name="Convert To Integer" library="BuiltIn">
+<var>${expected_size}</var>
+<arg>140</arg>
+<doc>Converts the given item to an integer number.</doc>
+<msg timestamp="20220615 09:18:37.948" level="INFO">${expected_size} = 140</msg>
+<status status="PASS" starttime="20220615 09:18:37.947" endtime="20220615 09:18:37.948"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${expected_size}</arg>
+<arg>${size}</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220615 09:18:37.949" endtime="20220615 09:18:37.950"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>10d</arg>
+<arg>${response.json()}[expires_in]</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220615 09:18:37.950" endtime="20220615 09:18:37.953"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:36.673" endtime="20220615 09:18:37.954"/>
+</test>
+<test id="s1-s2-t2" name="Should Not Get Token">
+<kw name="Attempt POST Session">
+<arg>${inv_pass}</arg>
+<arg>401</arg>
+<arg>Unauthorized</arg>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:38.598" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '51', 'Content-Type': 'application/json'} 
+ body=b'{"email": "kate@hotmail.com", "password": "abc123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:38.598" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=401, reason=Unauthorized 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '24', 'Etag': 'W/"18-XPDV80vbMk4yY1/PADG4jYM4rSI"', 'Date': 'Wed, 15 Jun 2022 12:18:38 GMT', 'Via': '1.1 vegur'} 
+ body={"error":"Unauthorized"} 
+ </msg>
+<msg timestamp="20220615 09:18:38.599" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:37.957" endtime="20220615 09:18:38.599"/>
+</kw>
+<msg timestamp="20220615 09:18:38.599" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:37.956" endtime="20220615 09:18:38.599"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${status_code}</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:38.599" endtime="20220615 09:18:38.600"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error_message}</arg>
+<arg>${response.json()}[error]</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220615 09:18:38.600" endtime="20220615 09:18:38.601"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:37.955" endtime="20220615 09:18:38.601"/>
+</kw>
+<kw name="Attempt POST Session">
+<arg>${inv_email}</arg>
+<arg>400</arg>
+<arg>Incorrect email</arg>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:39.214" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '51', 'Content-Type': 'application/json'} 
+ body=b'{"email": "kate.hotmail.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:39.214" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=400, reason=Bad Request 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '27', 'Etag': 'W/"1b-/TOfJuE8lwSWEXvBl7o6iRstTo0"', 'Date': 'Wed, 15 Jun 2022 12:18:39 GMT', 'Via': '1.1 vegur'} 
+ body={"error":"Incorrect email"} 
+ </msg>
+<msg timestamp="20220615 09:18:39.214" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:38.602" endtime="20220615 09:18:39.214"/>
+</kw>
+<msg timestamp="20220615 09:18:39.215" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:38.602" endtime="20220615 09:18:39.215"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${status_code}</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:39.215" endtime="20220615 09:18:39.216"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error_message}</arg>
+<arg>${response.json()}[error]</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220615 09:18:39.216" endtime="20220615 09:18:39.218"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:38.601" endtime="20220615 09:18:39.218"/>
+</kw>
+<kw name="Attempt POST Session">
+<arg>${email_not_found}</arg>
+<arg>401</arg>
+<arg>Unauthorized</arg>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:39.847" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '47', 'Content-Type': 'application/json'} 
+ body=b'{"email": "kate@404.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:39.847" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=401, reason=Unauthorized 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '24', 'Etag': 'W/"18-XPDV80vbMk4yY1/PADG4jYM4rSI"', 'Date': 'Wed, 15 Jun 2022 12:18:39 GMT', 'Via': '1.1 vegur'} 
+ body={"error":"Unauthorized"} 
+ </msg>
+<msg timestamp="20220615 09:18:39.847" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:39.220" endtime="20220615 09:18:39.848"/>
+</kw>
+<msg timestamp="20220615 09:18:39.848" level="INFO">${response} = &lt;Response [401]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:39.219" endtime="20220615 09:18:39.848"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${status_code}</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:39.848" endtime="20220615 09:18:39.848"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error_message}</arg>
+<arg>${response.json()}[error]</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220615 09:18:39.849" endtime="20220615 09:18:39.850"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:39.218" endtime="20220615 09:18:39.850"/>
+</kw>
+<kw name="Attempt POST Session">
+<arg>${empty_email}</arg>
+<arg>400</arg>
+<arg>Required email</arg>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:40.480" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '35', 'Content-Type': 'application/json'} 
+ body=b'{"email": "", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:40.480" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=400, reason=Bad Request 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '26', 'Etag': 'W/"1a-ztWLEO5pP/4DOQYYgf8vh7rMmRI"', 'Date': 'Wed, 15 Jun 2022 12:18:40 GMT', 'Via': '1.1 vegur'} 
+ body={"error":"Required email"} 
+ </msg>
+<msg timestamp="20220615 09:18:40.480" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:39.851" endtime="20220615 09:18:40.480"/>
+</kw>
+<msg timestamp="20220615 09:18:40.481" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:39.850" endtime="20220615 09:18:40.481"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${status_code}</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:40.481" endtime="20220615 09:18:40.482"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error_message}</arg>
+<arg>${response.json()}[error]</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220615 09:18:40.482" endtime="20220615 09:18:40.484"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:39.850" endtime="20220615 09:18:40.484"/>
+</kw>
+<kw name="Attempt POST Session">
+<arg>${without_email}</arg>
+<arg>400</arg>
+<arg>Required email</arg>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:41.109" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '22', 'Content-Type': 'application/json'} 
+ body=b'{"password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:41.110" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=400, reason=Bad Request 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '26', 'Etag': 'W/"1a-ztWLEO5pP/4DOQYYgf8vh7rMmRI"', 'Date': 'Wed, 15 Jun 2022 12:18:41 GMT', 'Via': '1.1 vegur'} 
+ body={"error":"Required email"} 
+ </msg>
+<msg timestamp="20220615 09:18:41.110" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:40.487" endtime="20220615 09:18:41.110"/>
+</kw>
+<msg timestamp="20220615 09:18:41.110" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:40.485" endtime="20220615 09:18:41.110"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${status_code}</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:41.110" endtime="20220615 09:18:41.111"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error_message}</arg>
+<arg>${response.json()}[error]</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220615 09:18:41.111" endtime="20220615 09:18:41.111"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:40.485" endtime="20220615 09:18:41.111"/>
+</kw>
+<kw name="Attempt POST Session">
+<arg>${empty_pass}</arg>
+<arg>400</arg>
+<arg>Required pass</arg>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:41.743" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '45', 'Content-Type': 'application/json'} 
+ body=b'{"email": "kate@hotmail.com", "password": ""}' 
+ </msg>
+<msg timestamp="20220615 09:18:41.743" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=400, reason=Bad Request 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '25', 'Etag': 'W/"19-XQPKZGB2rC+TLudFQKbwFLPwbR0"', 'Date': 'Wed, 15 Jun 2022 12:18:41 GMT', 'Via': '1.1 vegur'} 
+ body={"error":"Required pass"} 
+ </msg>
+<msg timestamp="20220615 09:18:41.743" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:41.112" endtime="20220615 09:18:41.743"/>
+</kw>
+<msg timestamp="20220615 09:18:41.744" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:41.112" endtime="20220615 09:18:41.744"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${status_code}</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:41.745" endtime="20220615 09:18:41.746"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error_message}</arg>
+<arg>${response.json()}[error]</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220615 09:18:41.746" endtime="20220615 09:18:41.748"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:41.112" endtime="20220615 09:18:41.749"/>
+</kw>
+<kw name="Attempt POST Session">
+<arg>${without_pass}</arg>
+<arg>400</arg>
+<arg>Required pass</arg>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:42.380" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '29', 'Content-Type': 'application/json'} 
+ body=b'{"email": "kate@hotmail.com"}' 
+ </msg>
+<msg timestamp="20220615 09:18:42.380" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=400, reason=Bad Request 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '25', 'Etag': 'W/"19-XQPKZGB2rC+TLudFQKbwFLPwbR0"', 'Date': 'Wed, 15 Jun 2022 12:18:42 GMT', 'Via': '1.1 vegur'} 
+ body={"error":"Required pass"} 
+ </msg>
+<msg timestamp="20220615 09:18:42.381" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:41.751" endtime="20220615 09:18:42.381"/>
+</kw>
+<msg timestamp="20220615 09:18:42.381" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:41.750" endtime="20220615 09:18:42.381"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>${status_code}</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:42.382" endtime="20220615 09:18:42.383"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${error_message}</arg>
+<arg>${response.json()}[error]</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20220615 09:18:42.383" endtime="20220615 09:18:42.385"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:41.749" endtime="20220615 09:18:42.385"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:37.954" endtime="20220615 09:18:42.386"/>
+</test>
+<doc>Session route test suite</doc>
+<status status="PASS" starttime="20220615 09:18:36.660" endtime="20220615 09:18:42.387"/>
+</suite>
+<suite id="s1-s3" name="Users" source="D:\Git\robot-gravidade-zero\getgeeks\project\backend\users\tests\Users.robot">
+<test id="s1-s3-t1" name="Add new user">
+<kw name="Factory New User" library="Users">
+<var>${user}</var>
+<msg timestamp="20220615 09:18:42.401" level="INFO">${user} = {'name': 'Clint Barton', 'email': 'barton@shield.com', 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:42.401" endtime="20220615 09:18:42.401"/>
+</kw>
+<kw name="Remove User" library="Helpers">
+<arg>${user}</arg>
+<kw name="Get Token" library="Helpers">
+<var>${token}</var>
+<arg>${user}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${payload}</var>
+<arg>email=${user}[email]</arg>
+<arg>password=${user}[password]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:42.403" level="INFO">${payload} = {'email': 'barton@shield.com', 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:42.403" endtime="20220615 09:18:42.403"/>
+</kw>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:43.064" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '52', 'Content-Type': 'application/json'} 
+ body=b'{"email": "barton@shield.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:43.064" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '364', 'Etag': 'W/"16c-K+tyItI3UN49cK1zKBoDrET5HG8"', 'Date': 'Wed, 15 Jun 2022 12:18:42 GMT', 'Via': '1.1 vegur'} 
+ body={"user":{"id":181,"email":"barton@shield.com","password_hash":"$2b$08$IT8GQHTv5faqmLwyqFdb3up40WOHA5A.rlWXlydEzoIprATR5Wi66","name":"Clint Barton","avatar":null,"whatsapp":null,"is_geek":false},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgxLCJpYXQiOjE2NTUyOTU1MjIsImV4cCI6MTY1NjE1OTUyMn0.uphwyUSdps-E-Pk0X3d12xyc8rp8U0CGdU9PGHmxhTc","expires_in":"10d"} 
+ </msg>
+<msg timestamp="20220615 09:18:43.064" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:42.404" endtime="20220615 09:18:43.064"/>
+</kw>
+<msg timestamp="20220615 09:18:43.064" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:42.403" endtime="20220615 09:18:43.064"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:43.065" level="INFO">${result} = </msg>
+<status status="PASS" starttime="20220615 09:18:43.064" endtime="20220615 09:18:43.065"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;200&quot; in &quot;${response}&quot;">
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>Bearer ${response.json()}[token]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:43.066" level="INFO">${result} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgxLCJpYXQiOjE2NTUyOTU1MjIsImV4cCI6MTY1NjE1OTUyMn0.uphwyUSdps-E-Pk0X3d12xyc8rp8U0CGdU9PGHmxhTc</msg>
+<status status="PASS" starttime="20220615 09:18:43.065" endtime="20220615 09:18:43.066"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:43.065" endtime="20220615 09:18:43.066"/>
+</branch>
+<status status="PASS" starttime="20220615 09:18:43.065" endtime="20220615 09:18:43.066"/>
+</if>
+<msg timestamp="20220615 09:18:43.067" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgxLCJpYXQiOjE2NTUyOTU1MjIsImV4cCI6MTY1NjE1OTUyMn0.uphwyUSdps-E-Pk0X3d12xyc8rp8U0CGdU9PGHmxhTc</msg>
+<status status="PASS" starttime="20220615 09:18:42.402" endtime="20220615 09:18:43.067"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;${token}&quot;">
+<kw name="DELETE User" library="UsersRoute">
+<arg>${token}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:43.068" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgxLCJpYXQiOjE2NTUyOTU1MjIsImV4cCI6MTY1NjE1OTUyMn0.uphwyUSdps-E-Pk0X3d12xyc8rp8U0CGdU9PGHmxhTc'}</msg>
+<status status="PASS" starttime="20220615 09:18:43.067" endtime="20220615 09:18:43.068"/>
+</kw>
+<kw name="DELETE" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a DELETE request.</doc>
+<msg timestamp="20220615 09:18:43.780" level="INFO">DELETE Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgxLCJpYXQiOjE2NTUyOTU1MjIsImV4cCI6MTY1NjE1OTUyMn0.uphwyUSdps-E-Pk0X3d12xyc8rp8U0CGdU9PGHmxhTc', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:43.781" level="INFO">DELETE Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=204, reason=No Content 
+ headers={'Server': 'Cowboy', 'Content-Length': '0', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Date': 'Wed, 15 Jun 2022 12:18:43 GMT', 'Via': '1.1 vegur'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:43.782" level="INFO">${response} = &lt;Response [204]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:43.068" endtime="20220615 09:18:43.782"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:43.067" endtime="20220615 09:18:43.783"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:43.067" endtime="20220615 09:18:43.783"/>
+</branch>
+<status status="PASS" starttime="20220615 09:18:43.067" endtime="20220615 09:18:43.783"/>
+</if>
+<status status="PASS" starttime="20220615 09:18:42.401" endtime="20220615 09:18:43.784"/>
+</kw>
+<kw name="POST User" library="UsersRoute">
+<var>${response}</var>
+<arg>${user}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:44.453" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '76', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Clint Barton", "email": "barton@shield.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:44.453" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '10', 'Etag': 'W/"a-bkvIY+Etn3S5wPimLIAqb183vD8"', 'Date': 'Wed, 15 Jun 2022 12:18:44 GMT', 'Via': '1.1 vegur'} 
+ body={"id":184} 
+ </msg>
+<msg timestamp="20220615 09:18:44.454" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:43.785" endtime="20220615 09:18:44.454"/>
+</kw>
+<msg timestamp="20220615 09:18:44.455" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:43.784" endtime="20220615 09:18:44.455"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>201</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:44.456" endtime="20220615 09:18:44.458"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${user_id}</var>
+<arg>${response.json()}[id]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:44.460" level="INFO">${user_id} = 184</msg>
+<status status="PASS" starttime="20220615 09:18:44.458" endtime="20220615 09:18:44.461"/>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<arg>${user_id} &gt; 0</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" starttime="20220615 09:18:44.461" endtime="20220615 09:18:44.462"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:42.401" endtime="20220615 09:18:44.462"/>
+</test>
+<test id="s1-s3-t2" name="Get user data">
+<kw name="Factory Get User" library="Users">
+<var>${user}</var>
+<msg timestamp="20220615 09:18:44.464" level="INFO">${user} = {'name': 'Gwen Stacy', 'email': 'gwen@oscorp.com', 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:44.463" endtime="20220615 09:18:44.464"/>
+</kw>
+<kw name="POST User" library="UsersRoute">
+<arg>${user}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:45.102" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '72', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Gwen Stacy", "email": "gwen@oscorp.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:45.102" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=400, reason=Bad Request 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '31', 'Etag': 'W/"1f-lFUySNKwX3L5eGEwGcNcUoVKWhE"', 'Date': 'Wed, 15 Jun 2022 12:18:45 GMT', 'Via': '1.1 vegur'} 
+ body={"error":"User already exists"} 
+ </msg>
+<msg timestamp="20220615 09:18:45.103" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:44.465" endtime="20220615 09:18:45.103"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:44.464" endtime="20220615 09:18:45.104"/>
+</kw>
+<kw name="Get Token" library="Helpers">
+<var>${token}</var>
+<arg>${user}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${payload}</var>
+<arg>email=${user}[email]</arg>
+<arg>password=${user}[password]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:45.107" level="INFO">${payload} = {'email': 'gwen@oscorp.com', 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:45.106" endtime="20220615 09:18:45.107"/>
+</kw>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:45.781" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '50', 'Content-Type': 'application/json'} 
+ body=b'{"email": "gwen@oscorp.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:45.782" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '360', 'Etag': 'W/"168-uCKQCwLZL6pasVq3E8ImPKD29SI"', 'Date': 'Wed, 15 Jun 2022 12:18:45 GMT', 'Via': '1.1 vegur'} 
+ body={"user":{"id":148,"email":"gwen@oscorp.com","password_hash":"$2b$08$aZ9PUIbEDf5M9OKzFA3ZcOQhnAm.xH264CxUuCvpc.7vivWExQPza","name":"Gwen Stacy","avatar":null,"whatsapp":null,"is_geek":false},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQ4LCJpYXQiOjE2NTUyOTU1MjUsImV4cCI6MTY1NjE1OTUyNX0.Kla1d_O_JnPX13QZW4dSjK0yjA_qpEX58uj4ycieDMY","expires_in":"10d"} 
+ </msg>
+<msg timestamp="20220615 09:18:45.782" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:45.109" endtime="20220615 09:18:45.782"/>
+</kw>
+<msg timestamp="20220615 09:18:45.783" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:45.108" endtime="20220615 09:18:45.783"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:45.786" level="INFO">${result} = </msg>
+<status status="PASS" starttime="20220615 09:18:45.784" endtime="20220615 09:18:45.786"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;200&quot; in &quot;${response}&quot;">
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>Bearer ${response.json()}[token]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:45.790" level="INFO">${result} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQ4LCJpYXQiOjE2NTUyOTU1MjUsImV4cCI6MTY1NjE1OTUyNX0.Kla1d_O_JnPX13QZW4dSjK0yjA_qpEX58uj4ycieDMY</msg>
+<status status="PASS" starttime="20220615 09:18:45.788" endtime="20220615 09:18:45.790"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:45.787" endtime="20220615 09:18:45.790"/>
+</branch>
+<status status="PASS" starttime="20220615 09:18:45.786" endtime="20220615 09:18:45.791"/>
+</if>
+<msg timestamp="20220615 09:18:45.791" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQ4LCJpYXQiOjE2NTUyOTU1MjUsImV4cCI6MTY1NjE1OTUyNX0.Kla1d_O_JnPX13QZW4dSjK0yjA_qpEX58uj4ycieDMY</msg>
+<status status="PASS" starttime="20220615 09:18:45.104" endtime="20220615 09:18:45.791"/>
+</kw>
+<kw name="GET User" library="UsersRoute">
+<var>${response}</var>
+<arg>${token}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:45.793" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQ4LCJpYXQiOjE2NTUyOTU1MjUsImV4cCI6MTY1NjE1OTUyNX0.Kla1d_O_JnPX13QZW4dSjK0yjA_qpEX58uj4ycieDMY'}</msg>
+<status status="PASS" starttime="20220615 09:18:45.792" endtime="20220615 09:18:45.793"/>
+</kw>
+<kw name="GET" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<msg timestamp="20220615 09:18:46.420" level="INFO">GET Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQ4LCJpYXQiOjE2NTUyOTU1MjUsImV4cCI6MTY1NjE1OTUyNX0.Kla1d_O_JnPX13QZW4dSjK0yjA_qpEX58uj4ycieDMY'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:46.420" level="INFO">GET Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '181', 'Etag': 'W/"b5-tMc7IUqmDvODPSY8vLc5lw7gL8U"', 'Date': 'Wed, 15 Jun 2022 12:18:46 GMT', 'Via': '1.1 vegur'} 
+ body={"id":148,"email":"gwen@oscorp.com","password_hash":"$2b$08$aZ9PUIbEDf5M9OKzFA3ZcOQhnAm.xH264CxUuCvpc.7vivWExQPza","name":"Gwen Stacy","avatar":null,"whatsapp":null,"is_geek":false} 
+ </msg>
+<msg timestamp="20220615 09:18:46.420" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:45.794" endtime="20220615 09:18:46.420"/>
+</kw>
+<msg timestamp="20220615 09:18:46.420" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:45.791" endtime="20220615 09:18:46.420"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:46.420" endtime="20220615 09:18:46.421"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${user}[name]</arg>
+<arg>${response.json()}[name]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220615 09:18:46.421" endtime="20220615 09:18:46.422"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${user}[email]</arg>
+<arg>${response.json()}[email]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220615 09:18:46.422" endtime="20220615 09:18:46.422"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>None</arg>
+<arg>${response.json()}[whatsapp]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20220615 09:18:46.423" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'NoneType'&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:46.422" endtime="20220615 09:18:46.423"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>None</arg>
+<arg>${response.json()}[avatar]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20220615 09:18:46.424" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'NoneType'&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:46.423" endtime="20220615 09:18:46.424"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>False</arg>
+<arg>${response.json()}[is_geek]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20220615 09:18:46.425" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'bool'&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:46.424" endtime="20220615 09:18:46.425"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:44.463" endtime="20220615 09:18:46.425"/>
+</test>
+<test id="s1-s3-t3" name="Remove user">
+<kw name="Factory Remove User" library="Users">
+<var>${user}</var>
+<msg timestamp="20220615 09:18:46.425" level="INFO">${user} = {'name': 'Test Ross', 'email': 'ross@email.com', 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:46.425" endtime="20220615 09:18:46.425"/>
+</kw>
+<kw name="POST User" library="UsersRoute">
+<arg>${user}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:47.089" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '70', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Test Ross", "email": "ross@email.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:47.089" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=201, reason=Created 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '10', 'Etag': 'W/"a-Q3HQDcw7C7uWtC6KiB6j8EbFqqg"', 'Date': 'Wed, 15 Jun 2022 12:18:47 GMT', 'Via': '1.1 vegur'} 
+ body={"id":185} 
+ </msg>
+<msg timestamp="20220615 09:18:47.090" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:46.425" endtime="20220615 09:18:47.090"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:46.425" endtime="20220615 09:18:47.090"/>
+</kw>
+<kw name="Get Token" library="Helpers">
+<var>${token}</var>
+<arg>${user}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${payload}</var>
+<arg>email=${user}[email]</arg>
+<arg>password=${user}[password]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:47.092" level="INFO">${payload} = {'email': 'ross@email.com', 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:47.091" endtime="20220615 09:18:47.092"/>
+</kw>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:47.740" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '49', 'Content-Type': 'application/json'} 
+ body=b'{"email": "ross@email.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:47.740" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '358', 'Etag': 'W/"166-WcUJqxrIsubjtEOXH6Uv5WLBOl8"', 'Date': 'Wed, 15 Jun 2022 12:18:47 GMT', 'Via': '1.1 vegur'} 
+ body={"user":{"id":185,"email":"ross@email.com","password_hash":"$2b$08$e4SwG4r8KL10es9f8Jw9heydPXidP6iB7TkX/pCOfCHqTCkrTHTOy","name":"Test Ross","avatar":null,"whatsapp":null,"is_geek":false},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTg1LCJpYXQiOjE2NTUyOTU1MjcsImV4cCI6MTY1NjE1OTUyN30.StQQrbxMcGdwt005qJgOvUllNCfyY_QtdB3_rOQICsA","expires_in":"10d"} 
+ </msg>
+<msg timestamp="20220615 09:18:47.740" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:47.092" endtime="20220615 09:18:47.741"/>
+</kw>
+<msg timestamp="20220615 09:18:47.741" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:47.092" endtime="20220615 09:18:47.741"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:47.742" level="INFO">${result} = </msg>
+<status status="PASS" starttime="20220615 09:18:47.741" endtime="20220615 09:18:47.742"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;200&quot; in &quot;${response}&quot;">
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>Bearer ${response.json()}[token]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:47.743" level="INFO">${result} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTg1LCJpYXQiOjE2NTUyOTU1MjcsImV4cCI6MTY1NjE1OTUyN30.StQQrbxMcGdwt005qJgOvUllNCfyY_QtdB3_rOQICsA</msg>
+<status status="PASS" starttime="20220615 09:18:47.742" endtime="20220615 09:18:47.743"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:47.742" endtime="20220615 09:18:47.743"/>
+</branch>
+<status status="PASS" starttime="20220615 09:18:47.742" endtime="20220615 09:18:47.743"/>
+</if>
+<msg timestamp="20220615 09:18:47.743" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTg1LCJpYXQiOjE2NTUyOTU1MjcsImV4cCI6MTY1NjE1OTUyN30.StQQrbxMcGdwt005qJgOvUllNCfyY_QtdB3_rOQICsA</msg>
+<status status="PASS" starttime="20220615 09:18:47.090" endtime="20220615 09:18:47.743"/>
+</kw>
+<kw name="DELETE User" library="UsersRoute">
+<var>${response}</var>
+<arg>${token}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:47.744" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTg1LCJpYXQiOjE2NTUyOTU1MjcsImV4cCI6MTY1NjE1OTUyN30.StQQrbxMcGdwt005qJgOvUllNCfyY_QtdB3_rOQICsA'}</msg>
+<status status="PASS" starttime="20220615 09:18:47.744" endtime="20220615 09:18:47.744"/>
+</kw>
+<kw name="DELETE" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a DELETE request.</doc>
+<msg timestamp="20220615 09:18:48.387" level="INFO">DELETE Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTg1LCJpYXQiOjE2NTUyOTU1MjcsImV4cCI6MTY1NjE1OTUyN30.StQQrbxMcGdwt005qJgOvUllNCfyY_QtdB3_rOQICsA', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:48.387" level="INFO">DELETE Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=204, reason=No Content 
+ headers={'Server': 'Cowboy', 'Content-Length': '0', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Date': 'Wed, 15 Jun 2022 12:18:48 GMT', 'Via': '1.1 vegur'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:48.388" level="INFO">${response} = &lt;Response [204]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:47.744" endtime="20220615 09:18:48.388"/>
+</kw>
+<msg timestamp="20220615 09:18:48.389" level="INFO">${response} = &lt;Response [204]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:47.743" endtime="20220615 09:18:48.389"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>204</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:48.389" endtime="20220615 09:18:48.390"/>
+</kw>
+<kw name="GET User" library="UsersRoute">
+<var>${response}</var>
+<arg>${token}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:48.394" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTg1LCJpYXQiOjE2NTUyOTU1MjcsImV4cCI6MTY1NjE1OTUyN30.StQQrbxMcGdwt005qJgOvUllNCfyY_QtdB3_rOQICsA'}</msg>
+<status status="PASS" starttime="20220615 09:18:48.392" endtime="20220615 09:18:48.394"/>
+</kw>
+<kw name="GET" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<msg timestamp="20220615 09:18:49.041" level="INFO">GET Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTg1LCJpYXQiOjE2NTUyOTU1MjcsImV4cCI6MTY1NjE1OTUyN30.StQQrbxMcGdwt005qJgOvUllNCfyY_QtdB3_rOQICsA'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:49.041" level="INFO">GET Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=404, reason=Not Found 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Date': 'Wed, 15 Jun 2022 12:18:48 GMT', 'Content-Length': '0', 'Via': '1.1 vegur'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:49.041" level="INFO">${response} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:48.394" endtime="20220615 09:18:49.041"/>
+</kw>
+<msg timestamp="20220615 09:18:49.042" level="INFO">${response} = &lt;Response [404]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:48.391" endtime="20220615 09:18:49.042"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>404</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:49.042" endtime="20220615 09:18:49.042"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:46.425" endtime="20220615 09:18:49.042"/>
+</test>
+<test id="s1-s3-t4" name="Update user">
+<kw name="Factory Update User" library="Users">
+<var>${user}</var>
+<msg timestamp="20220615 09:18:49.043" level="INFO">${user} = {'before': {'name': 'Ross Test', 'email': 'ross@test.com', 'password': 'pwd123'}, 'after': {'name': 'Test Ross', 'email': 'ross@test.com', 'whatsapp': '11999999992', 'avatar': 'https://gravatar.com/av...</msg>
+<status status="PASS" starttime="20220615 09:18:49.043" endtime="20220615 09:18:49.043"/>
+</kw>
+<kw name="POST User" library="UsersRoute">
+<arg>${user}[before]</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:49.681" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '69', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Ross Test", "email": "ross@test.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:49.681" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=400, reason=Bad Request 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '31', 'Etag': 'W/"1f-lFUySNKwX3L5eGEwGcNcUoVKWhE"', 'Date': 'Wed, 15 Jun 2022 12:18:49 GMT', 'Via': '1.1 vegur'} 
+ body={"error":"User already exists"} 
+ </msg>
+<msg timestamp="20220615 09:18:49.682" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:49.044" endtime="20220615 09:18:49.682"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:49.043" endtime="20220615 09:18:49.683"/>
+</kw>
+<kw name="Get Token" library="Helpers">
+<var>${token}</var>
+<arg>${user}[before]</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${payload}</var>
+<arg>email=${user}[email]</arg>
+<arg>password=${user}[password]</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:49.686" level="INFO">${payload} = {'email': 'ross@test.com', 'password': 'pwd123'}</msg>
+<status status="PASS" starttime="20220615 09:18:49.685" endtime="20220615 09:18:49.686"/>
+</kw>
+<kw name="POST Session" library="SessionsRoute">
+<var>${response}</var>
+<arg>${payload}</arg>
+<kw name="POST" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/sessions</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a POST request.</doc>
+<msg timestamp="20220615 09:18:50.352" level="INFO">POST Request : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ path_url=/sessions 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '48', 'Content-Type': 'application/json'} 
+ body=b'{"email": "ross@test.com", "password": "pwd123"}' 
+ </msg>
+<msg timestamp="20220615 09:18:50.352" level="INFO">POST Response : url=https://getgeeks-users-elidio.herokuapp.com/sessions 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '445', 'Etag': 'W/"1bd-Fa7ncRTnvma5yvduXb3W/2uYc7k"', 'Date': 'Wed, 15 Jun 2022 12:18:50 GMT', 'Via': '1.1 vegur'} 
+ body={"user":{"id":157,"email":"ross@test.com","password_hash":"$2b$08$gQuIxSpfogk/a0Aft7MYOu8B5zBFu9pi1nK8KfmGdYVV2hTJxyZFq","name":"Test Ross","avatar":"https://gravatar.com/avatar/b83aa73d262a7beebbbf8008564f02a4?s=400&amp;d=robohash&amp;r=x","whatsapp":"11999999992","is_geek":false},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTU3LCJpYXQiOjE2NTUyOTU1MzAsImV4cCI6MTY1NjE1OTUzMH0.6Q_YZP9LVA8jnWgKiDB7x9WadaG9lS4vpmOqXxA4hG0","expires_in":"10d"} 
+ </msg>
+<msg timestamp="20220615 09:18:50.353" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:49.687" endtime="20220615 09:18:50.353"/>
+</kw>
+<msg timestamp="20220615 09:18:50.354" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:49.686" endtime="20220615 09:18:50.355"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>${EMPTY}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:50.359" level="INFO">${result} = </msg>
+<status status="PASS" starttime="20220615 09:18:50.355" endtime="20220615 09:18:50.360"/>
+</kw>
+<if>
+<branch type="IF" condition="&quot;200&quot; in &quot;${response}&quot;">
+<kw name="Set Variable" library="BuiltIn">
+<var>${result}</var>
+<arg>Bearer ${response.json()}[token]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220615 09:18:50.364" level="INFO">${result} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTU3LCJpYXQiOjE2NTUyOTU1MzAsImV4cCI6MTY1NjE1OTUzMH0.6Q_YZP9LVA8jnWgKiDB7x9WadaG9lS4vpmOqXxA4hG0</msg>
+<status status="PASS" starttime="20220615 09:18:50.361" endtime="20220615 09:18:50.365"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:50.361" endtime="20220615 09:18:50.365"/>
+</branch>
+<status status="PASS" starttime="20220615 09:18:50.360" endtime="20220615 09:18:50.365"/>
+</if>
+<msg timestamp="20220615 09:18:50.366" level="INFO">${token} = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTU3LCJpYXQiOjE2NTUyOTU1MzAsImV4cCI6MTY1NjE1OTUzMH0.6Q_YZP9LVA8jnWgKiDB7x9WadaG9lS4vpmOqXxA4hG0</msg>
+<status status="PASS" starttime="20220615 09:18:49.683" endtime="20220615 09:18:50.366"/>
+</kw>
+<kw name="PUT User" library="UsersRoute">
+<var>${response}</var>
+<arg>${token}</arg>
+<arg>${user}[after]</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:50.368" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTU3LCJpYXQiOjE2NTUyOTU1MzAsImV4cCI6MTY1NjE1OTUzMH0.6Q_YZP9LVA8jnWgKiDB7x9WadaG9lS4vpmOqXxA4hG0'}</msg>
+<status status="PASS" starttime="20220615 09:18:50.367" endtime="20220615 09:18:50.368"/>
+</kw>
+<kw name="PUT" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>headers=${headers}</arg>
+<arg>json=${payload}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a PUT request.</doc>
+<msg timestamp="20220615 09:18:51.008" level="INFO">PUT Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTU3LCJpYXQiOjE2NTUyOTU1MzAsImV4cCI6MTY1NjE1OTUzMH0.6Q_YZP9LVA8jnWgKiDB7x9WadaG9lS4vpmOqXxA4hG0', 'Content-Length': '169', 'Content-Type': 'application/json'} 
+ body=b'{"name": "Test Ross", "email": "ross@test.com", "whatsapp": "11999999992", "avatar": "https://gravatar.com/avatar/b83aa73d262a7beebbbf8008564f02a4?s=400&amp;d=robohash&amp;r=x"}' 
+ </msg>
+<msg timestamp="20220615 09:18:51.008" level="INFO">PUT Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Date': 'Wed, 15 Jun 2022 12:18:50 GMT', 'Content-Length': '0', 'Via': '1.1 vegur'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:51.008" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:50.369" endtime="20220615 09:18:51.008"/>
+</kw>
+<msg timestamp="20220615 09:18:51.008" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:50.366" endtime="20220615 09:18:51.009"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:51.009" endtime="20220615 09:18:51.009"/>
+</kw>
+<kw name="GET User" library="UsersRoute">
+<var>${response}</var>
+<arg>${token}</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>${headers}</var>
+<arg>Authorization=${token}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220615 09:18:51.010" level="INFO">${headers} = {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTU3LCJpYXQiOjE2NTUyOTU1MzAsImV4cCI6MTY1NjE1OTUzMH0.6Q_YZP9LVA8jnWgKiDB7x9WadaG9lS4vpmOqXxA4hG0'}</msg>
+<status status="PASS" starttime="20220615 09:18:51.010" endtime="20220615 09:18:51.010"/>
+</kw>
+<kw name="GET" library="RequestsLibrary">
+<var>${response}</var>
+<arg>${API_USERS}/users</arg>
+<arg>headers=${headers}</arg>
+<arg>expected_status=any</arg>
+<doc>Sends a GET request.</doc>
+<msg timestamp="20220615 09:18:51.643" level="INFO">GET Request : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.25.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTU3LCJpYXQiOjE2NTUyOTU1MzAsImV4cCI6MTY1NjE1OTUzMH0.6Q_YZP9LVA8jnWgKiDB7x9WadaG9lS4vpmOqXxA4hG0'} 
+ body=None 
+ </msg>
+<msg timestamp="20220615 09:18:51.644" level="INFO">GET Response : url=https://getgeeks-users-elidio.herokuapp.com/users 
+ status=200, reason=OK 
+ headers={'Server': 'Cowboy', 'Connection': 'keep-alive', 'X-Powered-By': 'Express', 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '266', 'Etag': 'W/"10a-vMA7ABlbty3mM5KY4SNJf/iJyoE"', 'Date': 'Wed, 15 Jun 2022 12:18:51 GMT', 'Via': '1.1 vegur'} 
+ body={"id":157,"email":"ross@test.com","password_hash":"$2b$08$gQuIxSpfogk/a0Aft7MYOu8B5zBFu9pi1nK8KfmGdYVV2hTJxyZFq","name":"Test Ross","avatar":"https://gravatar.com/avatar/b83aa73d262a7beebbbf8008564f02a4?s=400&amp;d=robohash&amp;r=x","whatsapp":"11999999992","is_geek":false} 
+ </msg>
+<msg timestamp="20220615 09:18:51.644" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:51.010" endtime="20220615 09:18:51.644"/>
+</kw>
+<msg timestamp="20220615 09:18:51.645" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:51.009" endtime="20220615 09:18:51.645"/>
+</kw>
+<kw name="Status Should Be" library="RequestsLibrary">
+<arg>200</arg>
+<arg>${response}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220615 09:18:51.645" endtime="20220615 09:18:51.646"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${user}[after][name]</arg>
+<arg>${response.json()}[name]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220615 09:18:51.646" endtime="20220615 09:18:51.648"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${user}[after][email]</arg>
+<arg>${response.json()}[email]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220615 09:18:51.648" endtime="20220615 09:18:51.650"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${user}[after][whatsapp]</arg>
+<arg>${response.json()}[whatsapp]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220615 09:18:51.650" endtime="20220615 09:18:51.651"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${user}[after][avatar]</arg>
+<arg>${response.json()}[avatar]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" starttime="20220615 09:18:51.651" endtime="20220615 09:18:51.653"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>False</arg>
+<arg>${response.json()}[is_geek]</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20220615 09:18:51.654" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;
+&lt;class 'bool'&gt;</msg>
+<status status="PASS" starttime="20220615 09:18:51.653" endtime="20220615 09:18:51.654"/>
+</kw>
+<status status="PASS" starttime="20220615 09:18:49.043" endtime="20220615 09:18:51.655"/>
+</test>
+<doc>Users route test suite</doc>
+<status status="PASS" starttime="20220615 09:18:42.389" endtime="20220615 09:18:51.655"/>
+</suite>
+<status status="PASS" starttime="20220615 09:18:24.260" endtime="20220615 09:18:51.657"/>
+</suite>
+<statistics>
+<total>
+<stat pass="8" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="8" fail="0" skip="0" id="s1" name="Tests">Tests</stat>
+<stat pass="2" fail="0" skip="0" id="s1-s1" name="Geeks">Tests.Geeks</stat>
+<stat pass="2" fail="0" skip="0" id="s1-s2" name="Sessions">Tests.Sessions</stat>
+<stat pass="4" fail="0" skip="0" id="s1-s3" name="Users">Tests.Users</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
