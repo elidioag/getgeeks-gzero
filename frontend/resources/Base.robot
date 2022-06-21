@@ -5,6 +5,7 @@ Library     Browser
 Library     factories/Users.py
 Library     Utils.py
 Library     Collections
+Library     String
 
 Resource    actions/_SharedActions.robot
 Resource    actions/AuthActions.robot
@@ -12,6 +13,7 @@ Resource    actions/GeekActions.robot
 Resource    actions/SignupActions.robot
 Resource    Database.robot
 Resource    Helpers.robot
+Resource    Services.robot
 
 *Variables*
 ${BASE_URL}     https://getgeeks-elidio.herokuapp.com
